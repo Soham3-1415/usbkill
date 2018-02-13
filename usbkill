@@ -2,7 +2,7 @@
 abortSystem() {
         echo "Aborting!"
         echo "Shutting down."
-        /sbin/shutdown now
+        systemctl poweroff -i
 }
 
 countUnknownUsbs() {

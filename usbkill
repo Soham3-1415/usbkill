@@ -1,0 +1,36 @@
+#!/bin/bash
+abortSystem() {
+        echo "Aborting!"
+        echo "Shutting down."
+        /sbin/shutdown now
+}
+
+countUnknownUsbs() {
+	if [ ! -z "$whitelist" ]
+	then
+		local knownCount=$(lsusb | grep -E "$whitelist" | wc -l)
+		echo `expr $(countUsbs) - $knownCount`
+	else
+		echo $(countUsbs)
+	fi
+}
+
+countUsbs() {
+        echo `lsusb | wc -l`
+}
+
+whitelistPath=~/usbkill.whitelist
+sampleRate=.25
+clear
+echo "Welcome to UsbKill."
+echo "Sampling every $sampleRate seconds"
+[ -f $whitelistPath ] && [ ! -z "$(cat $whitelistPath)" ] && whitelist="ID ""$(sed ':a;N;$!ba;s/\n/|ID /g' $whitelistPath)" || echo "No items in whitelist."
+usbs=$(countUnknownUsbs)
+echo "Now running..."
+while true
+do
+	currentUsbs=$(countUnknownUsbs)
+	[ $usbs -gt $currentUsbs ] && echo "Alert: USB Removed" && abortSystem
+	[ $usbs -lt $currentUsbs ] && echo "Alert: Foreign USB Detected" && abortSystem
+	sleep $sampleRate
+done

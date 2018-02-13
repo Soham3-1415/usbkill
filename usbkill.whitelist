@@ -1,0 +1,5 @@
+#Example whitelist
+#Each line represents a device id gathered by the lsusb command
+#It is recommended that comments are removed from this file
+aaaa:bbbb
+yyyy:zzzz

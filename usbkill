@@ -1,12 +1,14 @@
 #!/bin/bash
-trap finish EXIT
+trap exitDetection EXIT
 abortSystem() {
         echo "Aborting!"
         echo "Shutting down."
         systemctl poweroff -i
 }
 
-finish() {
+exitDetection() {
+	echo ""
+	echo "Detected attempt to terminate usbkill"
 	abortSystem
 }
 

@@ -1,8 +1,13 @@
 #!/bin/bash
+trap finish EXIT
 abortSystem() {
         echo "Aborting!"
         echo "Shutting down."
         systemctl poweroff -i
+}
+
+finish() {
+	abortSystem
 }
 
 countUnknownUsbs() {

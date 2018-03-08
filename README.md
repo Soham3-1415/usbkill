@@ -1,5 +1,7 @@
 usbkill
 
+This project is licensed under the MIT License (included in root directory of the repository)
+
 This is based on the project by hephaest0s.
 It can be found at: https://github.com/hephaest0s/usbkill.
 

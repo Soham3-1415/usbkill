@@ -3,7 +3,7 @@ trap exitDetection EXIT
 abortSystem() {
         echo "Aborting!"
         echo "Shutting down."
-        systemctl poweroff -i
+        [ systemctl hibernate ] || systemctl poweroff
 }
 
 exitDetection() {
